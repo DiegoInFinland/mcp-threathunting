@@ -81,7 +81,7 @@ Add this to your MCP client config (e.g. Claude Desktop `claude_desktop_config.j
         "-y",
         "--silent",
         "tsx",
-        "/Users/diegofalco/Desktop/mcp-threathunting/src/server.ts"
+        "/path/to/mcp-threathunting/src/server.ts"
       ],
       "env": {
         "VT_KEY": "your_api_key_here",
