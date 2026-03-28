@@ -10,9 +10,6 @@ Please, note that this project is under development and not finished yet.
 - **IP reputation lookup** — country, ASN, network, malicious/suspicious/harmless counts
 - **URL reputation lookup** — title, HTTP status, redirect destination, threat names, categories
 - **Domain reputation lookup** — registrar, creation date, categories, analysis stats
-- Compact, agent-readable structured output (no raw JSON blobs)
-- Per-tool error handling — one failed lookup never blocks the others
-- Runs over stdio transport, compatible with any MCP client
 
 ---
 

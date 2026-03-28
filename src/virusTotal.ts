@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-dotenv.config();
+//dotenv.config();
 
 export async function IPReputation(ip: string) {
   const apiKey = process.env.VT_KEY;
