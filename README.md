@@ -1,7 +1,7 @@
 # Threat Hunting MCP Server
 
 A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that exposes VirusTotal threat intelligence as tools for AI agents. Agents can look up the reputation of IP addresses, URLs, and domains in real time.
-
+Please, note that this project is under development and not finished yet.
 ---
 
 ## Features
@@ -99,4 +99,4 @@ Add this to your MCP client config (e.g. Claude Desktop `claude_desktop_config.j
 
 - This is a development project, many things could go wrong as MCP protocol is quite new and this project is a hobby and is not well debugged.
 - This project should Add more online services and file scanners in order to be more meaningful.
-- Currently, this server returns an entire JSON file to AI clients, since it's more human readable information to users, but it could be more tailored as well.
+- Currently, this server returns an entire JSON file to AI clients, since AI clients will delivers to users more readable human output, but it could be more tailored as well.
