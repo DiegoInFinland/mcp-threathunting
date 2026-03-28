@@ -25,7 +25,7 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that ex
 ## Installation
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/DiegoInFinland/mcp-threathunting.git
 cd mcp-threathunting
 npm install
 ```
