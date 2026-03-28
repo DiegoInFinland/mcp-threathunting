@@ -2,6 +2,7 @@
 
 A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that exposes VirusTotal threat intelligence as tools for AI agents. Agents can look up the reputation of IP addresses, URLs, and domains in real time.
 Please, note that this project is under development and not finished yet.
+
 ---
 
 ## Features
