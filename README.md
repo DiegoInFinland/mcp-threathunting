@@ -73,7 +73,7 @@ npx @modelcontextprotocol/inspector -- npx -y tsx src/server.ts
         "-y",
         "--silent",
         "tsx",
-        "/Users/diegofalco/Desktop/mcp-threathunting/src/server.ts"
+        "/path/to/your/mcp-threathunting/src/server.ts"
       ],
       "env": {
         "VT_KEY": "your_vt_key",
@@ -86,18 +86,6 @@ npx @modelcontextprotocol/inspector -- npx -y tsx src/server.ts
     }
   }
 }
-```
-
-## Project structure
-
-```text
-src/
-  api/
-    abuseIpDb.ts
-    virusTotal.ts
-  conf.ts
-  server.ts
-  tools.ts
 ```
 
 ## Known limitations
