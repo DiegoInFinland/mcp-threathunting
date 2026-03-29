@@ -7,7 +7,7 @@ Current providers:
 - VirusTotal (IP, URL, domain)
 - AbuseIPDB (IP)
 
-This project is under active development.
+This project is under development.
 
 ## Features
 
