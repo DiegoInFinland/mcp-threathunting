@@ -4,10 +4,11 @@ import { fileURLToPath } from "node:url";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { server } from "./conf.js";
 import {
-  virusTotalDomainLookup,
-  virusTotalIPLookup,
-  virusTotalURLLookup,
-  abuseIPDBLookup,
+  virusTotalDomainTool,
+  virusTotalTool,
+  virusTotalURLTool,
+  abuseIPDBTool,
+  abuseIPDBReportTool,
 } from "./tools.js";
 
 // Load environment variables from .env file.
@@ -16,10 +17,11 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, "../.env"), quiet: true });
 
 async function main() {
-  await virusTotalIPLookup();
-  await virusTotalURLLookup();
-  await virusTotalDomainLookup();
-  await abuseIPDBLookup();
+  await virusTotalTool();
+  await virusTotalURLTool();
+  await virusTotalDomainTool();
+  await abuseIPDBTool();
+  await abuseIPDBReportTool();
   const transport = new StdioServerTransport();
   await server.connect(transport);
 }
