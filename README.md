@@ -1,24 +1,27 @@
 # Threat Hunting MCP Server
 
-A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that exposes VirusTotal threat intelligence as tools for AI agents. Agents can look up the reputation of IP addresses, URLs, and domains in real time.
-Please, note that this project is under development and not finished yet.
+A Model Context Protocol (MCP) server that exposes threat intel lookups for AI agents.
 
----
+Current providers:
+
+- VirusTotal (IP, URL, domain)
+- AbuseIPDB (IP)
+
+This project is under active development.
 
 ## Features
 
-- **IP reputation lookup** — country, ASN, network, malicious/suspicious/harmless counts
-- **URL reputation lookup** — title, HTTP status, redirect destination, threat names, categories
-- **Domain reputation lookup** — registrar, creation date, categories, analysis stats
-
----
+- `virustotal-ip-lookup`
+- `virustotal-url-lookup`
+- `virustotal-domain-lookup`
+- `abuseipdb-lookup` (supports optional `maxAgeInDays`)
+- Returns full JSON payloads from upstream providers
 
 ## Requirements
 
 - Node.js 18+
-- A VirusTotal API key.
-
----
+- VirusTotal API key
+- AbuseIPDB API key
 
 ## Installation
 
@@ -28,46 +31,38 @@ cd mcp-threathunting
 npm install
 ```
 
----
-
 ## Configuration
 
-Copy `.env.example` to `.env` and fill in your values:
+Create a `.env` file in the project root with:
 
-```bash
-cp .env.example .env
+```env
+VT_KEY=your_virustotal_api_key
+VT_URL_IP=https://www.virustotal.com/api/v3/ip_addresses/
+VT_URL_URL=https://www.virustotal.com/api/v3/urls/
+VT_URL_DOMAIN=https://www.virustotal.com/api/v3/domains/
+
+ABUSEIPDB_KEY=your_abuseipdb_api_key
+ABUSEIPDB_CHECK=https://api.abuseipdb.com/api/v2/check
 ```
 
-| Variable        | Description                                                                |
-| --------------- | -------------------------------------------------------------------------- |
-| `VT_KEY`        | Your VirusTotal API key                                                    |
-| `VT_URL_IP`     | VirusTotal IP endpoint (`https://www.virustotal.com/api/v3/ip_addresses/`) |
-| `VT_URL_URL`    | VirusTotal URL endpoint (`https://www.virustotal.com/api/v3/urls/`)        |
-| `VT_URL_DOMAIN` | VirusTotal domain endpoint (`https://www.virustotal.com/api/v3/domains/`)  |
-| `VT_URL_FILE`   | VirusTotal file endpoint (`https://www.virustotal.com/api/v3/files/`)      |
+Notes:
 
----
+- Environment variables are loaded in `src/server.ts` from `../.env`.
+- `maxAgeInDays` for AbuseIPDB is optional.
 
-## Running the server
+## Run locally
 
 ```bash
-# Development (with hot reload)
 npx -y tsx src/server.ts
 ```
 
----
-
-## Debugging with MCP Inspector
+## Debug with MCP Inspector
 
 ```bash
 npx @modelcontextprotocol/inspector -- npx -y tsx src/server.ts
 ```
 
----
-
-## Connecting to an AI agent
-
-Add this to your MCP client config (e.g. Claude Desktop `claude_desktop_config.json`):
+## Claude Desktop config example
 
 ```json
 {
@@ -78,23 +73,35 @@ Add this to your MCP client config (e.g. Claude Desktop `claude_desktop_config.j
         "-y",
         "--silent",
         "tsx",
-        "/path/to/mcp-threathunting/src/server.ts"
+        "/Users/diegofalco/Desktop/mcp-threathunting/src/server.ts"
       ],
       "env": {
-        "VT_KEY": "your_api_key_here",
+        "VT_KEY": "your_vt_key",
         "VT_URL_IP": "https://www.virustotal.com/api/v3/ip_addresses/",
         "VT_URL_URL": "https://www.virustotal.com/api/v3/urls/",
-        "VT_URL_DOMAIN": "https://www.virustotal.com/api/v3/domains/"
+        "VT_URL_DOMAIN": "https://www.virustotal.com/api/v3/domains/",
+        "ABUSEIPDB_KEY": "your_abuseipdb_key",
+        "ABUSEIPDB_CHECK": "https://api.abuseipdb.com/api/v2/check"
       }
     }
   }
 }
 ```
 
----
+## Project structure
+
+```text
+src/
+  api/
+    abuseIpDb.ts
+    virusTotal.ts
+  conf.ts
+  server.ts
+  tools.ts
+```
 
 ## Known limitations
 
-- This is a development project, many things could go wrong as MCP protocol is quite new and this project is a hobby and is not well debugged.
-- This project should Add more online services and file scanners in order to be more meaningful.
-- Currently, this server returns an entire JSON file to AI clients, since AI clients will delivers to users more readable human output, but it could be more tailored as well.
+- JSON responses are currently returned in full and can be large.
+- Limited retry/timeout/rate-limit handling.
+- This is still an evolving hobby project.

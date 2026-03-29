@@ -1,6 +1,63 @@
 import { server } from "./conf.js";
 import { z } from "zod";
-import { IPReputation, URLReputation, DomainReputation } from "./virusTotal.js";
+import { AbuseIPDB } from "./api/abuseIpDb.js";
+import {
+  IPReputation,
+  URLReputation,
+  DomainReputation,
+} from "./api/virusTotal.js";
+
+export async function abuseIPDBLookup() {
+  return server.registerTool(
+    "abuseipdb-lookup",
+    {
+      description: "Fetches the reputation of an IP address from AbuseIPDB",
+      inputSchema: {
+        ipAddress: z.string().describe("The IP address to look up"),
+        maxAgeInDays: z
+          .number()
+          .optional()
+          .describe("Maximum age of reports in days (optional)"),
+      },
+    },
+    async ({ ipAddress, maxAgeInDays }) => {
+      if (!ipAddress) {
+        return {
+          content: [
+            {
+              type: "text",
+              text: "No IP address provided.",
+            },
+          ],
+        };
+      }
+
+      try {
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(
+                await AbuseIPDB(ipAddress, maxAgeInDays),
+                null,
+                2,
+              ),
+            },
+          ],
+        };
+      } catch (error) {
+        return {
+          content: [
+            {
+              type: "text",
+              text: `AbuseIPDB lookup failed (${ipAddress}), error: ${String(error)}`,
+            },
+          ],
+        };
+      }
+    },
+  );
+}
 
 export async function virusTotalIPLookup() {
   return server.registerTool(
