@@ -15,7 +15,6 @@ This project is under heavely development.
 - `virustotal-url-lookup`
 - `virustotal-domain-lookup`
 - `abuseipdb-lookup` (supports optional `maxAgeInDays`)
-- Returns full JSON payloads from upstream providers
 
 ## Requirements
 
