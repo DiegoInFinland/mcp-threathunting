@@ -3,9 +3,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { server } from "./conf.js";
-import { abuseIPDBTool, abuseIPDBReportTool } from "./tools/abuseIPDB.js";
-import { urlScanTool } from "./tools/urlScan.js";
-import { virusTotalDomainTool, virusTotalTool } from "./tools/virusTotal.js";
+import { abuseIPDBTool, abuseIPDBReportTool } from "./tools/abuseIPDBTool.js";
+import { urlScanTool } from "./tools/urlScanTool.js";
+import {
+  virusTotalDomainTool,
+  virusTotalTool,
+} from "./tools/virusTotalTool.js";
 
 // Load environment variables from .env file.
 const __filename = fileURLToPath(import.meta.url);
