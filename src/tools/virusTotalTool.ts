@@ -6,8 +6,7 @@ export async function virusTotalTool() {
   return server.registerTool(
     "virustotal-ip-lookup",
     {
-      description:
-        "Retrieves the VirusTotal analysis summary for an IP address.",
+      description: `Checks the VirusTotal analysis summary for an IP address.`,
       inputSchema: {
         ipAddress: z.string().describe("The IP address to look up"),
       },
@@ -51,7 +50,7 @@ export async function virusTotalDomainTool() {
   return server.registerTool(
     "virustotal-domain-lookup",
     {
-      description: "Retrieves the VirusTotal analysis summary for a domain.",
+      description: `Retrieves the VirusTotal analysis summary and reports for a domain.`,
       inputSchema: {
         domainAddress: z.string().describe("The domain to look up"),
       },

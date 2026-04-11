@@ -1,4 +1,4 @@
-import { server } from "../conf";
+import { server, preProcessData } from "../conf";
 import { z } from "zod";
 import { urlScan } from "../api/urlScan";
 
@@ -6,8 +6,7 @@ export async function urlScanTool() {
   return server.registerTool(
     "urlscan-lookup",
     {
-      description:
-        "Check if a website is malicious/phishing using urlscan.io (ML-powered sandbox)",
+      description: `Checks if a website is malicious/phishing using urlscan.io (ML-powered sandbox)`,
       inputSchema: {
         url: z.string().describe("The URL to look up"),
       },
@@ -25,8 +24,7 @@ export async function urlScanTool() {
       }
 
       try {
-        const scanResult = await urlScan(url);
-
+        const scanResult = await urlScan(preProcessData(url));
         return {
           content: [
             {

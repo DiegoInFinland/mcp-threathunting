@@ -1,13 +1,14 @@
 import { server } from "../conf.js";
 import { z } from "zod";
-import { AbuseIPDB, abuseIPDBReport } from "../api/abuseIpDb.js";
+import { AbuseIPDB, abuseIPDBReport } from "../api/abuseIPDb.js";
 
 export async function abuseIPDBTool() {
   return server.registerTool(
     "abuseipdb-lookup",
     {
-      description:
-        "Retrieves AbuseIPDB check data for an IP address, including abuse confidence score and recent abuse context.",
+      description: `Checks an IP address against the AbuseIPDB database. 
+        Returns abuse confidence score (0-100), country, ISP, domain, usage type, total reports, and last reported date. 
+        Optionally, you can specify maxAgeInDays to filter reports by age.`,
       inputSchema: {
         ipAddress: z.string().describe("The IP address to look up"),
         maxAgeInDays: z
@@ -59,8 +60,9 @@ export async function abuseIPDBReportTool() {
   return server.registerTool(
     "abuseipdb-report",
     {
-      description:
-        "Retrieves AbuseIPDB report records for a given IP address with an optional per-page limit.",
+      description: `Retrieves paginated abuse reports submitted for a given IP address. 
+        Each report includes the reporter's categories (e.g. SSH brute-force, port scan), timestamp, and comment. 
+        Use perPage to control how many reports are returned.`,
       inputSchema: {
         ipAddress: z.string().describe("The IP address to fetch reports for."),
         page: z

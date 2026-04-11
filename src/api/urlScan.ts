@@ -1,15 +1,6 @@
 import { setTimeout as sleep } from "node:timers/promises";
 
-interface scanResponse {
-  malicious: boolean;
-  score: number;
-  message: string;
-  url: string;
-  screenshot?: string;
-  veredict?: string;
-}
-
-export async function urlScan(ip: string) {
+export async function urlScan(targetUrl: string) {
   const apiKey = process.env.URLSCAN_KEY;
   const url = process.env.URLSCAN;
   const resultBaseUrl = process.env.URLSCAN_RESULT;
@@ -27,7 +18,7 @@ export async function urlScan(ip: string) {
         "API-Key": apiKey,
       },
       body: JSON.stringify({
-        url: ip,
+        url: targetUrl,
         visibility: "public",
       }),
     });
@@ -36,6 +27,7 @@ export async function urlScan(ip: string) {
     }
 
     const data = (await response.json()) as { uuid?: string };
+
     // Ensure the response includes a UUID for the scan result
     const scanRef = data.uuid;
     if (!scanRef) {
@@ -45,7 +37,6 @@ export async function urlScan(ip: string) {
     await sleep(30000); // Wait for 30 seconds before fetching the results
 
     const apiUrl = `${resultBaseUrl}/${scanRef}`;
-
     const resultResponse = await fetch(apiUrl, {
       headers: {
         "API-Key": apiKey,
