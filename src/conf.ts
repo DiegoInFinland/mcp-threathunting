@@ -6,7 +6,7 @@ export const server = new McpServer({
   version: "1.0.0",
 });
 
-// A simple helper to clean the data BEFORE it goes to any API (Claude or urlscan)
+// A simple helper to clean the data BEFORE it goes to any API.
 export function preProcessData(rawData: string) {
   return rawData
     .replace(
@@ -14,7 +14,7 @@ export function preProcessData(rawData: string) {
       "USER@REDACTED.COM",
     )
     .replace(
-      /\b(id|user|uid|od|email|aff_id|cxd|sub\d*|click_id|tid|cid|pid)=([a-zA-Z0-9_%+.-]+)/gi,
+      /\b(id|user|uid|od|email|aff_id|cxd|sub\d*|click_id|tid|cid|pid|scid|hash)=([a-zA-Z0-9_%+.-]+)/gi,
       "$1=[REDACTED_ID]",
     );
 }
