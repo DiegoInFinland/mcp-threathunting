@@ -4,7 +4,7 @@ A Model Context Protocol (MCP) server that exposes threat intel lookups for AI a
 
 
 <p align="center">
-<video src="https://github.com/user-attachments/assets/bdbfbd88-3eb0-4b8d-8c3e-c5fe2a4db9d7" controls width="600"></video>
+<a href="https://github.com/user-attachments/assets/bdbfbd88-3eb0-4b8d-8c3e-c5fe2a4db9d7">Watch Minimal Example</a> 
 </p>
 
 
