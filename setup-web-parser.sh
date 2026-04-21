@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# This script checks if the 'uv' command is available, and if so, it runs the main.py script in the web-parser project.
+# This script checks if the 'uv' command is available, and if so, it runs the web-parser project.
 set -e 
 
 if command -v uv >/dev/null 2>&1; then
