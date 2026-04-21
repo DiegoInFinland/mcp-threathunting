@@ -1,0 +1,12 @@
+[project]
+name = "web-parser"
+version = "0.1.0"
+description = "HTML scrapper for research, summarization and analysis"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "beautifulsoup4>=4.14.3",
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.27.0",
+    "pytest>=9.0.3",
+]

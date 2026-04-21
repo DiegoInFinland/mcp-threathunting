@@ -27,8 +27,6 @@ export async function urlScan(targetUrl: string) {
     }
 
     const data = (await response.json()) as { uuid?: string };
-
-    // Ensure the response includes a UUID for the scan result
     const scanRef = data.uuid;
     if (!scanRef) {
       throw new Error("URL scan response did not include a UUID");
@@ -50,9 +48,40 @@ export async function urlScan(targetUrl: string) {
       );
     }
     const scanResult = await resultResponse.json();
-    // Return the scan result as is, or extract relevant information if needed.
-    return scanResult;
+    // Return both the scan result and the screenshot URL for easier access in the tool
+    return {
+      uuid: scanRef,
+      screenshot: await getUrlScanScreenshot(scanRef),
+      result: scanResult,
+    };
   } catch (error) {
     throw new Error(`Error submitting URL scan: ${String(error)}`);
   }
+}
+// Helper function to fetch the screenshot URL for a given scan UUID
+export async function getUrlScanScreenshot(uuid: string) {
+  const apiKey = process.env.URLSCAN_KEY;
+  const resultBaseUrl = process.env.URLSCAN_SCREENSHOT;
+
+  if (!apiKey || !resultBaseUrl) {
+    throw new Error(
+      "URLSCAN_KEY or URLSCAN_SCREENSHOT is not set in environment variables",
+    );
+  }
+
+  const screenshotUrl = `${resultBaseUrl.replace(/\/$/, "")}/${uuid}.png`;
+  const getScreenshot = await fetch(screenshotUrl, {
+    method: "GET",
+    headers: {
+      "API-Key": apiKey,
+    },
+  });
+
+  if (!getScreenshot.ok) {
+    throw new Error(
+      `Error fetching URL scan screenshot: ${getScreenshot.status} ${getScreenshot.statusText}`,
+    );
+  }
+
+  return screenshotUrl;
 }

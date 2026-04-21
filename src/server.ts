@@ -1,11 +1,8 @@
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { server } from "./conf.js";
 import { abuseIPDBTool, abuseIPDBReportTool } from "./tools/abuseIPDBTool.js";
-import { urlScanTool } from "./tools/urlScanTool.js";
-import {
-  virusTotalDomainTool,
-  virusTotalTool,
-} from "./tools/virusTotalTool.js";
+import { urlScanTool, urlScanScreenshotTool } from "./tools/urlScanTool.js";
+import { VtTool, VtDomainTool } from "./tools/virusTotalTool.js";
 
 // Fallback to load .env file if not already loaded (e.g., when running with ts-node)
 // This ensures that environment variables are available regardless of how the server is started.
@@ -18,11 +15,12 @@ import {
 //dotenv.config({ path: path.resolve(__dirname, "../.env"), quiet: true });
 
 async function main() {
-  await virusTotalTool();
-  await virusTotalDomainTool();
+  await VtTool();
+  await VtDomainTool();
   await abuseIPDBTool();
   await abuseIPDBReportTool();
   await urlScanTool();
+  await urlScanScreenshotTool();
 
   const transport = new StdioServerTransport();
   await server.connect(transport);

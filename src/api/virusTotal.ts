@@ -47,33 +47,3 @@ export async function DomainReputation(domain: string) {
     throw new Error(`Error fetching domain reputation: ${String(error)}`);
   }
 }
-
-/*export async function scanUrl(url: string) {
-  const apiKey = process.env.VT_KEY;
-  const urlScan = process.env.VT_URL_SCAN;
-
-  if (!apiKey || !urlScan) {
-    throw new Error("API key or URL not set in environment variables");
-  }
-  try {
-    const response = await fetch(urlScan, {
-      method: "POST",
-      headers: {
-        "x-apikey": apiKey!,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        url,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error submitting URL scan: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw new Error(`Error submitting URL scan: ${String(error)}`);
-  }
-}*/

@@ -3,3 +3,15 @@ dist/
 .env
 package-lock.* 
 .DS_Store
+.claude/ 
+.vscode/ 
+*.log
+*.tsbuildinfo
+coverage/
+*.tgz
+.venv/
+__pycache__/
+*.pyc 
+*.log 
+.pytest_cache/
+tests/ 

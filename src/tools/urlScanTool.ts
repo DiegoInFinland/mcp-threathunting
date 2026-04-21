@@ -1,6 +1,6 @@
 import { server, preProcessData } from "../conf";
 import { z } from "zod";
-import { urlScan } from "../api/urlScan";
+import { urlScan, getUrlScanScreenshot } from "../api/urlScan";
 
 export async function urlScanTool() {
   return server.registerTool(
@@ -39,6 +39,51 @@ export async function urlScanTool() {
             {
               type: "text",
               text: `URL lookup failed (${url}), error: ${String(error)}`,
+            },
+          ],
+        };
+      }
+    },
+  );
+}
+
+export async function urlScanScreenshotTool() {
+  return server.registerTool(
+    "urlscan-screenshot",
+    {
+      description: `Gets a screenshot of a URL scan result from urlscan.io`,
+      inputSchema: {
+        uuid: z.string().describe("The UUID of the URL scan result"),
+      },
+    },
+    async ({ uuid }) => {
+      if (!uuid) {
+        return {
+          content: [
+            {
+              type: "text",
+              text: "No UUID provided.",
+            },
+          ],
+        };
+      }
+
+      try {
+        const screenshotUrl = await getUrlScanScreenshot(uuid);
+        return {
+          content: [
+            {
+              type: "text",
+              text: `Screenshot URL for scan ${uuid}: ${screenshotUrl}`,
+            },
+          ],
+        };
+      } catch (error) {
+        return {
+          content: [
+            {
+              type: "text",
+              text: `Failed to get screenshot for UUID ${uuid}, error: ${String(error)}`,
             },
           ],
         };

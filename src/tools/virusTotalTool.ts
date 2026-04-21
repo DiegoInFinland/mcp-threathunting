@@ -2,7 +2,7 @@ import { server } from "../conf";
 import { z } from "zod";
 import { IPReputation, DomainReputation } from "../api/virusTotal";
 
-export async function virusTotalTool() {
+export async function VtTool() {
   return server.registerTool(
     "virustotal-ip-lookup",
     {
@@ -46,7 +46,7 @@ export async function virusTotalTool() {
   );
 }
 
-export async function virusTotalDomainTool() {
+export async function VtDomainTool() {
   return server.registerTool(
     "virustotal-domain-lookup",
     {

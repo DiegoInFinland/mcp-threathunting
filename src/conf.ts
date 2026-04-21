@@ -14,7 +14,7 @@ export function preProcessData(rawData: string) {
       "USER@REDACTED.COM",
     )
     .replace(
-      /\b(id|user|uid|od|email|aff_id|cxd|sub\d*|click_id|tid|cid|pid|scid|hash)=([a-zA-Z0-9_%+.-]+)/gi,
+      /\b(id|user|uid|od|email|aff_id|cxd|sub\d*|click_id|tid|cid|pid|scid|hash|token|t|sid|ext|m|u|mid)=([a-zA-Z0-9_%+.-]+)/gi,
       "$1=[REDACTED_ID]",
     );
 }
