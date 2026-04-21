@@ -3,9 +3,9 @@
 A Model Context Protocol (MCP) server that exposes threat intel lookups for AI agents and optional a Python server to parse HTML.
 
 
-
-https://github.com/user-attachments/assets/bdbfbd88-3eb0-4b8d-8c3e-c5fe2a4db9d7
-
+<p align="center">
+<a href="https://github.com/user-attachments/assets/bdbfbd88-3eb0-4b8d-8c3e-c5fe2a4db9d7">Watch minimal demo</a>
+</p>
 
 
 Current providers:
