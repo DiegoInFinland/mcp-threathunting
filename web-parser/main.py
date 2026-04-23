@@ -3,7 +3,7 @@ import httpx
 from bs4 import BeautifulSoup
 from typing import Any, Dict, List
 
-mcp = FastMCP('html-wrapper')
+mcp = FastMCP('web-parser')
 
 def is_html_content_type(response: httpx.Response) -> bool:
     content_type = response.headers.get('Content-Type', '').lower()
