@@ -15,3 +15,4 @@ __pycache__/
 *.log 
 .pytest_cache/
 tests/ 
+example.txt
